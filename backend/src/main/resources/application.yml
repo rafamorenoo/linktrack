@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: linktrack
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:linktrack}
+    username: ${DB_USER:linktrack}
+    password: ${DB_PASSWORD:linktrack}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:local-dev-secret-key-change-in-production-min-256-bits}
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+  base-url: ${BASE_URL:http://localhost:8080}
+  aws:
+    region: ${AWS_REGION:eu-west-1}
+    sqs:
+      click-events-queue: ${SQS_CLICK_EVENTS_URL:http://localhost:4566/000000000000/click-events}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    com.linktrack: DEBUG
+    org.springframework.security: INFO

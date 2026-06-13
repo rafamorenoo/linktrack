@@ -1,0 +1,33 @@
+{
+  "name": "LinkTrack Dev",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/terraform:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vmware.vscode-spring-boot",
+        "redhat.java",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-test",
+        "hashicorp.terraform",
+        "amazonwebservices.aws-toolkit-vscode",
+        "humao.rest-client",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "forwardPorts": [8080, 5432, 6379, 4566],
+  "portsAttributes": {
+    "8080": {"label": "Spring Boot API"},
+    "5432": {"label": "PostgreSQL"},
+    "6379": {"label": "Redis"},
+    "4566": {"label": "LocalStack"}
+  }
+}
